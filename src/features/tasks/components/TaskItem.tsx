@@ -1,8 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import { FiAlertCircle } from 'react-icons/fi'
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
+import { deleteTask } from '../services/taskService'
+import { useTaskStore } from '../stores/useTaskStore'
 import { Task } from '../taskTypes'
 
 interface TaskItemProps {
@@ -10,29 +14,44 @@ interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
-  return (
-    <StyledTaskItem className='task-item'>
-      <Card>
-        <CardHeader>
-          <h3>{task.title}</h3>
-        </CardHeader>
+  const [error, setError] = useState<string | null>(null)
+  const removeTask = useTaskStore((state) => state.removeTask)
 
-        <CardContent>
-          <p>{task.description}</p>
-        </CardContent>
-      </Card>
-    </StyledTaskItem>
+  const handleDelete = async () => {
+    try {
+      setError(null) // Reset error state before trying to delete
+      await deleteTask(task.id)
+      removeTask(task.id)
+    } catch (err) {
+      setError('Failed to delete task. Please try again later.')
+    }
+  }
+
+  return (
+    <Card className='mb-4 hover:bg-gray-50 transition'>
+      <CardHeader>
+        <CardTitle>{task.title}</CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <p>{task.description}</p>
+
+        <Button onClick={handleDelete} variant='destructive' className='mt-2'>
+          Delete
+        </Button>
+
+        {error && (
+          <Alert className='bg-red-100 border-red-400 text-red-700 mt-4'>
+            <FiAlertCircle className='w-5 h-5 mr-3 text-red-700' />
+
+            <AlertTitle>Error!</AlertTitle>
+
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+      </CardContent>
+    </Card>
   )
 }
-
-const StyledTaskItem = styled.div`
-  padding: 16px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  &:hover {
-    background-color: #f9f9f9;
-  }
-`
 
 export default TaskItem
