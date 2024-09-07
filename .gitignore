@@ -27,9 +27,6 @@ pnpm-debug.log*
 .env.test.local
 .env.production.local
 
-# Webpack config (if applicable)
-/webpack.config.js
-
 # TypeScript
 *.tsbuildinfo
 

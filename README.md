@@ -1,25 +1,35 @@
-📝 Todo List - Frontend
-Welcome to the Todo List frontend project! This application allows users to manage tasks using a beautiful, responsive UI built with React, Zustand, Styled Components, Tailwind CSS, and ShadCN UI. We also use React Query for fetching tasks and Axios for API communication.
+# 📝 Todo List - Frontend
 
-✨ Features
+- [📝 Todo List - Frontend](#-todo-list---frontend)
+  - [📜 Description](#-description)
+  - [✨ Features](#-features)
+  - [🛠️ Stack](#️-stack)
+  - [🖥️ Setup Steps](#️-setup-steps)
+  - [📚 Project Structure](#-project-structure)
+  - [� License](#-license)
+
+## 📜 Description
+
+Welcome to the Todo List frontend project! This application allows users to manage tasks using a beautiful, responsive UI built with React, Zustand, Tailwind CSS, and ShadCN UI. We also use React Query for fetching tasks and Axios for API communication.
+
+## ✨ Features
 
 - Task Management: Create, view, and manage tasks.
-- Responsive UI: Built with Tailwind CSS and styled-components, optimized for all screen sizes.
+- Responsive UI: Built with Tailwind CSS, optimized for all screen sizes.
 - State Management: Lightweight state management using Zustand.
 - Design System: Consistent and accessible components with ShadCN UI.
 - Clean Architecture: Feature-based project structure for scalability and maintainability.
 
-🛠️ Stack
+## 🛠️ Stack
 
 - React: JavaScript library for building user interfaces.
 - Zustand: State management for storing tasks.
-- Styled Components: For writing CSS in JS with dynamic styling.
 - Tailwind CSS: Utility-first CSS framework for rapid styling.
 - ShadCN UI: A design system for building consistent, accessible UIs.
 - React Query: For server state management and data fetching.
 - Axios: For making HTTP requests.
 
-🖥️ Setup Steps
+## 🖥️ Setup Steps
 
 1. Install Node.js
    Before getting started, make sure Node.js is installed on your machine. Node.js includes npm, which will be used to install PNPM.
@@ -95,7 +105,7 @@ pnpm build
 pnpm tailwind:build
 ```
 
-📚 Project Structure
+## 📚 Project Structure
 
 ```
 src/
@@ -107,17 +117,23 @@ src/
 │   │   │   ├── TaskForm.tsx
 │   │   ├── hooks/
 │   │   │   └── useTasks.ts
-│   │   ├── stores/
-│   │   │   └── useTaskStore.ts
+│   │   ├── pages/
+│   │   │   └── TaskPage.tsx
 │   │   ├── services/
 │   │   │   └── taskService.ts
-│   │   └── taskStyles.ts
+│   │   ├── stores/
+│   │   │   └── useTaskStore.ts
+│   │   └── taskTypes.ts
+├── pages/
+│   ├── HomePage.tsx
+│   ├── HomePage.test.tsx
 ├── shared/
 │   ├── components/
 │   │   ├── Button.tsx
 │   │   ├── Modal.tsx
 │   ├── services/
 │   │   └── api.ts
+│   ├── utils/
 ├── store/
 │   └── rootStore.ts
 ├── styles/
@@ -128,42 +144,6 @@ src/
 └── .env
 ```
 
-🔧 Developer Setup
-Tailwind CSS
-Tailwind is used for utility-first styling. To ensure you have it configured correctly, follow the steps below:
+## 📝 License
 
-1. Install Tailwind and its peer dependencies:
-
-```bash
-pnpm add -D tailwindcss postcss autoprefixer
-```
-
-2. Initialize Tailwind:
-
-```bash
-pnpm tailwindcss init
-```
-
-3. Update the tailwind.config.js file:
-
-```javascript
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-```
-
-4. Include Tailwind in your CSS file:
-   Create `src/styles/tailwind.css` and add the following:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-📝 License
 This project is licensed under the MIT License.
