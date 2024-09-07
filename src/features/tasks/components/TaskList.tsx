@@ -1,9 +1,13 @@
 import { FiAlertCircle } from 'react-icons/fi'
 import React, { useEffect, useState } from 'react'
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Card } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/shared/components/ui/alert'
+import { Card } from '@/shared/components/ui/card'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 
 import TaskItem from './TaskItem'
 import { useTaskStore } from '../stores/useTaskStore'
@@ -38,7 +42,7 @@ const TaskList: React.FC = () => {
 
   if (error) {
     return (
-      <Alert className='bg-red-100 border-red-400 text-red-700'>
+      <Alert className='w-auto p-4 mx-4 md:mx-6 lg:mx-16 bg-red-100 border-red-400 text-red-700'>
         <FiAlertCircle className='w-5 h-5 mr-3 text-red-700' />
 
         <AlertTitle>Error!</AlertTitle>

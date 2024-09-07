@@ -1,21 +1,35 @@
 import React, { useState } from 'react'
 import { FiAlertCircle } from 'react-icons/fi'
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/shared/components/ui/alert'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card'
 
-import { deleteTask } from '../services/taskService'
+import TaskForm from './TaskForm'
+import TaskView from './TaskView'
+import { deleteTask, updateTask } from '../services/taskService'
 import { useTaskStore } from '../stores/useTaskStore'
-import { Task } from '../taskTypes'
+import { Task, TaskDTO } from '../taskTypes'
 
 interface TaskItemProps {
   task: Task
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
+  const [isEditing, setIsEditing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const removeTask = useTaskStore((state) => state.removeTask)
+  const { removeTask, updateTaskInStore } = useTaskStore((state) => ({
+    removeTask: state.removeTask,
+    updateTaskInStore: state.updateTask,
+  }))
 
   const handleDelete = async () => {
     try {
@@ -27,18 +41,33 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     }
   }
 
+  const handleSave = async (updatedFields: TaskDTO) => {
+    try {
+      setError(null) // Reset error state before trying to edit
+      const savedTask = await updateTask(task.id, updatedFields)
+      updateTaskInStore(savedTask)
+      setIsEditing(false)
+    } catch (err) {
+      setError('Failed to update task. Please try again later.')
+    }
+  }
+
   return (
     <Card className='mb-4 hover:bg-gray-50 transition'>
       <CardHeader>
-        <CardTitle>{task.title}</CardTitle>
+        <CardTitle>{isEditing ? 'Edit Task' : task.title}</CardTitle>
       </CardHeader>
 
       <CardContent>
-        <p>{task.description}</p>
-
-        <Button onClick={handleDelete} variant='destructive' className='mt-2'>
-          Delete
-        </Button>
+        {isEditing ? (
+          <TaskForm task={task} onSubmit={handleSave} />
+        ) : (
+          <TaskView
+            task={task}
+            onEdit={() => setIsEditing(true)}
+            onDelete={handleDelete}
+          />
+        )}
 
         {error && (
           <Alert className='bg-red-100 border-red-400 text-red-700 mt-4'>

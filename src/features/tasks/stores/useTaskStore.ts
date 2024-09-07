@@ -8,6 +8,7 @@ interface TaskStore {
   fetchTasks: () => void
   addTask: (task: Task) => void
   removeTask: (taskId: string) => void
+  updateTask: (updatedTask: Task) => void
 }
 
 export const useTaskStore = create<TaskStore>((set) => ({
@@ -20,5 +21,11 @@ export const useTaskStore = create<TaskStore>((set) => ({
   removeTask: (taskId) =>
     set((state) => ({
       tasks: state.tasks.filter((task) => task.id !== taskId),
+    })),
+  updateTask: (updatedTask) =>
+    set((state) => ({
+      tasks: state.tasks.map((task) =>
+        task.id === updatedTask.id ? updatedTask : task
+      ),
     })),
 }))

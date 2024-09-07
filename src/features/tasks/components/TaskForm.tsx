@@ -1,10 +1,8 @@
-import * as z from 'zod'
-
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormField,
@@ -12,40 +10,48 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shared/components/ui/form'
+import { Button } from '@/shared/components/ui/button'
+import { Input } from '@/shared/components/ui/input'
+import { Textarea } from '@/shared/components/ui/textarea'
 
-import { useTaskStore } from '../stores/useTaskStore'
-import { createTask } from '../services/taskService'
-import { FiEdit, FiFileText } from 'react-icons/fi'
+import { Task, TaskDTO, taskSchema } from '../taskTypes'
 
-const taskSchema = z.object({
-  title: z.string().min(1, { message: 'Task title is required' }),
-  description: z.string().optional(),
-})
+interface TaskFormProps {
+  task?: Task
+  onSubmit: (data: TaskDTO) => void
+}
 
-const TaskForm: React.FC = () => {
-  const form = useForm({
+const TaskForm: React.FC<TaskFormProps> = ({ task, onSubmit }) => {
+  const navigate = useNavigate()
+
+  const form = useForm<TaskDTO>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
-      title: '',
-      description: '',
+      title: task?.title || '',
+      description: task?.description || '',
     },
   })
 
-  const addTask = useTaskStore((state) => state.addTask)
-
-  const onSubmit = async (data: any) => {
-    try {
-      const newTask = await createTask(data)
-      addTask(newTask)
-      form.reset()
-    } catch (error) {
-      console.error('Failed to create task', error)
+  useEffect(() => {
+    if (task) {
+      form.reset({
+        title: task.title,
+        description: task.description,
+      })
     }
+  }, [task, form])
+
+  const handleClear = () => {
+    form.reset({
+      title: '',
+      description: '',
+    })
   }
 
+  const handleBackToHome = () => {
+    navigate('/')
+  }
   return (
     <Form {...form}>
       <form
@@ -57,8 +63,7 @@ const TaskForm: React.FC = () => {
           name='title'
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='flex items-center'>
-                <FiEdit className='mr-2' />
+              <FormLabel className='flex items-center font-bold text-lg text-gray-700'>
                 Task Title
               </FormLabel>
 
@@ -80,8 +85,7 @@ const TaskForm: React.FC = () => {
           name='description'
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='flex items-center'>
-                <FiFileText className='mr-2' />
+              <FormLabel className='flex items-center font-bold text-lg text-gray-700'>
                 Task Description
               </FormLabel>
 
@@ -98,9 +102,27 @@ const TaskForm: React.FC = () => {
           )}
         />
 
-        <Button type='submit' className='w-full md:w-auto flex items-center'>
-          Add Task
-        </Button>
+        <div className='flex space-x-4'>
+          <Button type='submit'>{task ? 'Update Task' : 'Add Task'}</Button>
+
+          <Button
+            className='bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
+            onClick={handleClear}
+            type='button'
+          >
+            Clear
+          </Button>
+
+          {!task && (
+            <Button
+              className='bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
+              onClick={handleBackToHome}
+              type='button'
+            >
+              Back to Home
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   )

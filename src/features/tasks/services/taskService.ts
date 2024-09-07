@@ -1,5 +1,5 @@
 import api from '../../../shared/services/api'
-import { Task } from '../taskTypes'
+import { Task, TaskDTO } from '../taskTypes'
 
 const API_URL = '/api/tasks'
 
@@ -13,12 +13,12 @@ export const getTask = async (taskId: string): Promise<Task> => {
   return response.data
 }
 
-export const createTask = async (taskData: Task) => {
+export const createTask = async (taskData: TaskDTO) => {
   const response = await api.post(API_URL, taskData)
   return response.data
 }
 
-export const updateTask = async (taskId: string, taskData: Task) => {
+export const updateTask = async (taskId: string, taskData: TaskDTO) => {
   const response = await api.put(`${API_URL}/${taskId}`, taskData)
   return response.data
 }

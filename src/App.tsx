@@ -1,7 +1,10 @@
 import React from 'react'
+import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 
-import TaskList from './features/tasks/components/TaskList'
-import TaskForm from './features/tasks/components/TaskForm'
+import HomePage from './pages/HomePage'
+import TaskPage from './features/tasks/pages/TaskPage'
+import Footer from './shared/components/layout/Footer'
+import Header from './shared/components/layout/Header'
 import GlobalStyles from './styles/globalStyles'
 
 const App: React.FC = () => {
@@ -9,10 +12,17 @@ const App: React.FC = () => {
     <>
       <GlobalStyles />
 
-      <div className='container mx-auto p-4'>
-        <TaskForm />
-        <TaskList />
+      <Header />
+
+      <div className='pb-16'>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/tasks' element={<TaskPage />} />
+          </Routes>
+        </BrowserRouter>
       </div>
+      <Footer />
     </>
   )
 }
