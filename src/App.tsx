@@ -5,13 +5,10 @@ import HomePage from './pages/HomePage'
 import TaskPage from './features/tasks/pages/TaskPage'
 import Footer from './shared/components/layout/Footer'
 import Header from './shared/components/layout/Header'
-import GlobalStyles from './styles/globalStyles'
 
 const App: React.FC = () => {
   return (
     <>
-      <GlobalStyles />
-
       <Header />
 
       <div className='pb-16'>
