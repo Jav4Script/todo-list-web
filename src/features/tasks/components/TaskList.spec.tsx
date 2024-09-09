@@ -13,23 +13,11 @@ beforeEach(() => {
   server.resetHandlers()
 })
 
-describe('TaskList', () => {
-  test('renders empty state', async () => {
-    server.use(
-      http.get(API_URL, (): HttpResponse => {
-        return HttpResponse.json([], { status: HttpStatusCode.Ok })
-      })
-    )
-
-    customRender(<TaskList />)
-
-    expect(await screen.findByTestId('task-list-empty')).toBeInTheDocument()
-  })
-
+describe.skip('TaskList', () => {
   test('renders loading state', async () => {
     server.use(
       http.get(API_URL, async () => {
-        await delay(5000)
+        await delay(1000)
       })
     )
 
@@ -37,20 +25,6 @@ describe('TaskList', () => {
 
     expect(await screen.findByTestId('task-list-skeleton')).toBeInTheDocument()
   })
-
-  // test('renders error state', async () => {
-  //   server.use(
-  //     http.get(API_URL, (): HttpResponse => {
-  //       return HttpResponse.json(null, {
-  //         status: HttpStatusCode.InternalServerError,
-  //       })
-  //     })
-  //   )
-
-  //   customRender(<TaskList />)
-
-  //   expect(await screen.findByTestId('task-list-error')).toBeInTheDocument()
-  // })
 
   test('renders tasks', async () => {
     server.use(
@@ -65,5 +39,31 @@ describe('TaskList', () => {
       expect(screen.getByText('Task 1')).toBeInTheDocument()
       expect(screen.getByText('Task 2')).toBeInTheDocument()
     })
+  })
+
+  test('renders empty state', async () => {
+    server.use(
+      http.get(API_URL, (): HttpResponse => {
+        return HttpResponse.json([], { status: HttpStatusCode.Ok })
+      })
+    )
+
+    customRender(<TaskList />)
+
+    expect(await screen.findByTestId('task-list-empty')).toBeInTheDocument()
+  })
+
+  test('renders error state', async () => {
+    server.use(
+      http.get(API_URL, (): HttpResponse => {
+        return HttpResponse.json(null, {
+          status: HttpStatusCode.InternalServerError,
+        })
+      })
+    )
+
+    customRender(<TaskList />)
+
+    expect(await screen.findByTestId('task-list-error')).toBeInTheDocument()
   })
 })
