@@ -1,10 +1,11 @@
 import React from 'react'
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import HomePage from './pages/HomePage'
 import TaskPage from './features/tasks/pages/TaskPage'
 import Footer from './shared/components/layout/Footer'
 import Header from './shared/components/layout/Header'
+import { Toaster } from './shared/components/ui/toaster'
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,8 @@ const App: React.FC = () => {
             <Route path='/tasks' element={<TaskPage />} />
           </Routes>
         </BrowserRouter>
+
+        <Toaster />
       </div>
       <Footer />
     </>

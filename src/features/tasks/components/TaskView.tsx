@@ -17,6 +17,7 @@ const TaskView: React.FC<TaskViewProps> = ({ task, onEdit, onDelete }) => {
       <Button onClick={onEdit} className='mt-2'>
         Edit
       </Button>
+
       <Button onClick={onDelete} variant='destructive' className='mt-2 ml-2'>
         Delete
       </Button>

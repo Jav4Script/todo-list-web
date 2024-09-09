@@ -6,7 +6,7 @@
   - [🛠️ Stack](#️-stack)
   - [🖥️ Setup Steps](#️-setup-steps)
   - [📚 Project Structure](#-project-structure)
-  - [� License](#-license)
+  - [📝 License](#-license)
 
 ## 📜 Description
 
@@ -116,7 +116,7 @@ src/
 │   │   │   ├── TaskItem.tsx
 │   │   │   ├── TaskForm.tsx
 │   │   ├── hooks/
-│   │   │   └── useTasks.ts
+│   │   │   └── useGetTasks.ts
 │   │   ├── pages/
 │   │   │   └── TaskPage.tsx
 │   │   ├── services/

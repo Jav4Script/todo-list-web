@@ -12,11 +12,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card'
+import { useToast } from '@/shared/hooks/use-toast'
 
 import TaskForm from './TaskForm'
 import TaskView from './TaskView'
-import { deleteTask, updateTask } from '../services/taskService'
-import { useTaskStore } from '../stores/useTaskStore'
+import { useEditTask } from '../hooks/useEditTask'
+import { useRemoveTask } from '../hooks/useRemoveTask'
 import { Task, TaskDTO } from '../taskTypes'
 
 interface TaskItemProps {
@@ -25,30 +26,30 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const { removeTask, updateTaskInStore } = useTaskStore((state) => ({
-    removeTask: state.removeTask,
-    updateTaskInStore: state.updateTask,
-  }))
+  const { isError: isEditError, mutateAsync: editTask } = useEditTask()
+  const { isError: isRemoveError, mutateAsync: removeTask } = useRemoveTask()
+  const { toast } = useToast()
+
+  const shouldDisplayError = isEditError || isRemoveError
 
   const handleDelete = async () => {
     try {
-      setError(null) // Reset error state before trying to delete
-      await deleteTask(task.id)
-      removeTask(task.id)
+      await removeTask(task.id)
+      toast({
+        title: 'Success!',
+        description: 'Task deleted successfully.',
+      })
     } catch (err) {
-      setError('Failed to delete task. Please try again later.')
+      console.error(err)
     }
   }
 
-  const handleSave = async (updatedFields: TaskDTO) => {
+  const handleEdit = async (updatedFields: TaskDTO) => {
     try {
-      setError(null) // Reset error state before trying to edit
-      const savedTask = await updateTask(task.id, updatedFields)
-      updateTaskInStore(savedTask)
+      await editTask({ id: task.id, updatedFields })
       setIsEditing(false)
     } catch (err) {
-      setError('Failed to update task. Please try again later.')
+      console.error(err)
     }
   }
 
@@ -60,7 +61,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
       <CardContent>
         {isEditing ? (
-          <TaskForm task={task} onSubmit={handleSave} />
+          <TaskForm task={task} onSubmit={handleEdit} />
         ) : (
           <TaskView
             task={task}
@@ -69,13 +70,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           />
         )}
 
-        {error && (
+        {shouldDisplayError && (
           <Alert className='bg-red-100 border-red-400 text-red-700 mt-4'>
             <FiAlertCircle className='w-5 h-5 mr-3 text-red-700' />
 
             <AlertTitle>Error!</AlertTitle>
 
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription>{`Failed to ${
+              isEditError ? 'update' : 'delete'
+            } task. Please try again later.`}</AlertDescription>
           </Alert>
         )}
       </CardContent>

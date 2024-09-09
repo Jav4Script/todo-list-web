@@ -13,26 +13,31 @@
             "@/*": [
                 "*"
             ],
-            "@components/*": [
-                "components/*"
-            ],
             "@features/*": [
                 "features/*"
+            ],
+            "@pages/*": [
+                "pages/*"
             ],
             "@stores/*": [
                 "stores/*"
             ],
-            "@utils/*": [
-                "lib/utils/*"
+            "@shared/*": [
+                "shared/*"
             ]
         },
         "moduleResolution": "nodenext",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "types": [
+            "vitest",
+            "@testing-library/jest-dom"
+        ],
     },
     "include": [
-        "src"
+        "src",
+        "src/setupTests.ts"
     ]
 }

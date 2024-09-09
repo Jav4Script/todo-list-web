@@ -52,10 +52,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSubmit }) => {
   const handleBackToHome = () => {
     navigate('/')
   }
+
+  const handleSubmit = (data: TaskDTO) => {
+    onSubmit(data)
+    handleClear()
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(handleSubmit)}
         className='space-y-6 p-4 md:p-6 lg:p-8 mx-4 md:mx-6 lg:mx-8'
       >
         <FormField
