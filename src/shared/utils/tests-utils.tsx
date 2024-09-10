@@ -11,7 +11,9 @@ interface Options extends RenderOptions {
   initialRoutes?: string[]
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false } },
+})
 
 const AllTheProviders = ({ children }) => (
   <QueryClientProvider client={queryClient}>

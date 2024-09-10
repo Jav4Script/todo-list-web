@@ -9,11 +9,7 @@ import { API_URL, mock_tasks, server } from '@/shared/mocks/tasks'
 
 import TaskList from './TaskList'
 
-beforeEach(() => {
-  server.resetHandlers()
-})
-
-describe.skip('TaskList', () => {
+describe('TaskList', () => {
   test('renders loading state', async () => {
     server.use(
       http.get(API_URL, async () => {
@@ -56,9 +52,7 @@ describe.skip('TaskList', () => {
   test('renders error state', async () => {
     server.use(
       http.get(API_URL, (): HttpResponse => {
-        return HttpResponse.json(null, {
-          status: HttpStatusCode.InternalServerError,
-        })
+        return HttpResponse.error()
       })
     )
 

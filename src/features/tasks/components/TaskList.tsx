@@ -17,8 +17,6 @@ const TaskList: React.FC = () => {
   const { isError, isLoading } = useGetTasks()
   const tasks = useTaskStore((state) => state.tasks)
 
-  console.log('tasks', tasks)
-
   if (isLoading) {
     return (
       <Skeleton
