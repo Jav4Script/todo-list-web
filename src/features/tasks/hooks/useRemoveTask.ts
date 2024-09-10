@@ -12,3 +12,6 @@ export const useRemoveTask = () => {
     },
   })
 }
+
+// Custom hook for removing tasks
+// Encapsulates the logic for removing tasks, adhering to the DRY principle

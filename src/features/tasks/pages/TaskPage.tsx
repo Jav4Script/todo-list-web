@@ -28,3 +28,6 @@ const TaskPage: React.FC = () => {
 }
 
 export default TaskPage
+
+// Task page component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering the task page

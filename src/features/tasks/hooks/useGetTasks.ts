@@ -12,3 +12,6 @@ export const useGetTasks = () => {
     },
   })
 }
+
+// Custom hook for fetching tasks
+// Encapsulates the logic for data fetching, adhering to the DRY principle

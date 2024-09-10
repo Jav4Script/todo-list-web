@@ -64,3 +64,6 @@ const TaskList: React.FC = () => {
 }
 
 export default TaskList
+
+// Task list component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering a list of tasks

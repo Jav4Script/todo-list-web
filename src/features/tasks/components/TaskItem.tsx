@@ -87,3 +87,6 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 }
 
 export default TaskItem
+
+// Task item component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering a task item

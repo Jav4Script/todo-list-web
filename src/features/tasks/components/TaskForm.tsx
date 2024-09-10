@@ -135,3 +135,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSubmit }) => {
 }
 
 export default TaskForm
+
+// Task form component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering a form for tasks

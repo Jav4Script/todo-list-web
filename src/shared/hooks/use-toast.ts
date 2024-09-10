@@ -189,3 +189,6 @@ function useToast() {
 }
 
 export { useToast, toast }
+
+// Custom hook for toast notifications
+// Demonstrates the DRY principle by encapsulating reusable logic

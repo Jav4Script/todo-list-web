@@ -26,3 +26,6 @@ const TaskView: React.FC<TaskViewProps> = ({ task, onEdit, onDelete }) => {
 }
 
 export default TaskView
+
+// Task view component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering a task view

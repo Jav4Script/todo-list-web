@@ -13,3 +13,6 @@ export const useCreateTask = () => {
     },
   })
 }
+
+// Custom hook for creating tasks
+// Encapsulates the logic for creating tasks, adhering to the DRY principle

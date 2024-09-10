@@ -29,3 +29,6 @@ const HomePage: React.FC = () => {
 }
 
 export default HomePage
+
+// Home page component
+// Adheres to the Single Responsibility Principle by focusing solely on rendering the home page

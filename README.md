@@ -18,7 +18,7 @@ Welcome to the Todo List frontend project! This application allows users to mana
 - Responsive UI: Built with Tailwind CSS, optimized for all screen sizes.
 - State Management: Lightweight state management using Zustand.
 - Design System: Consistent and accessible components with ShadCN UI.
-- Clean Architecture: Feature-based project structure for scalability and maintainability.
+- Feature-based architecture: Each feature has its own directory, promoting modularity and scalability.
 
 ## 🛠️ Stack
 
@@ -108,40 +108,62 @@ pnpm tailwind:build
 ## 📚 Project Structure
 
 ```
-src/
-├── features/
-│   ├── tasks/
-│   │   ├── components/
-│   │   │   ├── TaskList.tsx
-│   │   │   ├── TaskItem.tsx
-│   │   │   ├── TaskForm.tsx
-│   │   ├── hooks/
-│   │   │   └── useGetTasks.ts
-│   │   ├── pages/
-│   │   │   └── TaskPage.tsx
-│   │   ├── services/
-│   │   │   └── taskService.ts
-│   │   ├── stores/
-│   │   │   └── useTaskStore.ts
-│   │   └── taskTypes.ts
-├── pages/
-│   ├── HomePage.tsx
-│   ├── HomePage.test.tsx
-├── shared/
-│   ├── components/
-│   │   ├── Button.tsx
-│   │   ├── Modal.tsx
-│   ├── services/
-│   │   └── api.ts
-│   ├── utils/
+.
+├── .babelrc
+├── .env
+├── .gitignore
+├── .prettierrc
+├── .vscode/
+│ └── settings.json
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── README.md
+├── shadcn.config.js
+├── src/
+│ ├── App.tsx
+│ ├── features/
+│ │ └── tasks/
+│ │ ├── components/
+│ │ │ ├── TaskList.tsx
+│ │ │ ├── TaskItem.tsx
+│ │ │ └── TaskForm.tsx
+│ │ ├── hooks/
+│ │ │ └── useGetTasks.ts
+│ │ ├── pages/
+│ │ │ └── TaskPage.tsx
+│ │ ├── services/
+│ │ │ └── taskService.ts
+│ │ ├── stores/
+│ │ │ └── useTaskStore.ts
+│ │ └── taskTypes.ts
+│ ├── hooks/
+│ │ └── use-toast.ts
+│ ├── index.tsx
+│ ├── pages/
+│ │ ├── HomePage.spec.tsx
+│ │ └── HomePage.tsx
+│ ├── setupTests.ts
+│ ├── shared/
+│ │ ├── components/
+│ │ │ ├── Button.tsx
+│ │ │ └── Modal.tsx
+│ │ ├── hooks/
+│ │ ├── mocks/
+│ │ └── services/
+│ │ └── api.ts
+│ └── utils/
 ├── store/
-│   └── rootStore.ts
+│ └── rootStore.ts
 ├── styles/
-│   ├── globalStyles.ts
-│   └── tailwind.css
-├── App.tsx
-├── index.tsx
-└── .env
+│ └── tailwind.css
+├── tailwind.config.js
+├── tsconfig.json
+├── vitest.config.ts
+└── webpack.config.js
 ```
 
 ## 📝 License

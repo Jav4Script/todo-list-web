@@ -32,3 +32,6 @@ export const deleteTask = async (taskId: string) => {
 
   return taskId
 }
+
+// Service functions for tasks
+// Encapsulates the logic for interacting with the task API
